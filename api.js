@@ -4,6 +4,7 @@ const querystring = require('querystring');
 const apiID="3912a728";
 const apiKey="93348161bf3709746463a237526d180f";
 //https://api.nutritionix.com/v1_1/search
+////https://developer.nutritionix.com/docs/v1_1#/nutritionix_api_v1_1s
 function onrequest(request, response){
     let r=null;
     let prettyJson ='';
