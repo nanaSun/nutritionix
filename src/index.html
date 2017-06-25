@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="main">
+		<input type="text" id="searchText" />
+		<button id="search">search</button>
+		<h1>My Services</h1>
+		<ul id="services"></ul>
+		<p id="total">total: <span>$0</span></p>
+		
+	</div>
+	<script type="text/template" id="item-service">
+		<input type="checkbox" value="1" name="<%=title%>" /><span>$<%=price%></span>
+  	</script>
+	<script src="/jquery/dist/jquery.min.js"></script>
+	<script src="/underscore/underscore-min.js"></script>
+	<script type="text/javascript" src="/backbone/backbone-min.js"></script>
+	<script src="/scripts/models/food.js "></script>
+	<script src="/scripts/views/food.js "></script>
+	<script src="/scripts/collections/foods.js "></script>
+	<script src="/scripts/app.js "></script>
+</body>
+</html>
