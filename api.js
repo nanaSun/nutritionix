@@ -4,8 +4,8 @@ const querystring = require('querystring');
 const url = require('url');
 const NutritionixClient = require('nutritionix');
 
-const apiID="";
-const apiKey="";
+const apiID="3912a728";
+const apiKey="93348161bf3709746463a237526d180f";
 const nutritionix = new NutritionixClient({
     appId: apiID,
     appKey: apiKey

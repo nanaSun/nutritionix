@@ -2,24 +2,40 @@
 <html>
 <head>
 	<title></title>
+	<style>
+		.hide{ display: none; }
+		#services img{  height: 44px;  }
+	</style>
 </head>
 <body>
 	<div id="main">
 		<input type="text" id="searchText" />
 		<button id="search">search</button>
-		<h1>My Services</h1>
 		<ul id="services"></ul>
-		<p id="total">total: <span>$0</span></p>
-		
+		<div id="detail"></div>
+		<div id="diet"></div>
 	</div>
 	<script type="text/template" id="item-service">
-		<input type="checkbox" value="1" name="<%=title%>" /><span>$<%=price%></span>
+		<img src=<%=thumbnail%>>
+		<span><%=item_name%></span>
+		<span><%=nutrient_value%></span>
+		<span><%=nutrient_uom%></span>
+		<div class="addToDiet">+</div>
+  	</script>
+  	<script type="text/template" id="item-detail">
+  		<ul>
+		<% _.each(label.nutrients, function(nutrient) { %>
+            <li><span><%=nutrient.name%></span><span><%=nutrient.usda_tag%></span></li>
+        <% }) %>
+        </ul>
   	</script>
 	<script src="/jquery/dist/jquery.min.js"></script>
 	<script src="/underscore/underscore-min.js"></script>
 	<script type="text/javascript" src="/backbone/backbone-min.js"></script>
 	<script src="/scripts/models/food.js "></script>
+	<script src="/scripts/models/diet.js "></script>
 	<script src="/scripts/views/food.js "></script>
+	<script src="/scripts/views/diet.js "></script>
 	<script src="/scripts/collections/foods.js "></script>
 	<script src="/scripts/app.js "></script>
 </body>
