@@ -1,6 +1,7 @@
 $(function(){
 	var foods = new app.foodList([]);
-  app.diet = new diet();
+  app.foodRecord = new foodRecord();
+  
 	var App = Backbone.View.extend({
         el: $('#main'),
         events:{

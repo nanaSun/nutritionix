@@ -27,8 +27,6 @@
         
     },
     addToDiet:function(){
-         console.log(app.diet);
-         app.diet.addFood(JSON.stringify(this.model.attributes));
-         console.log(app.diet);
+         app.foodRecord.addFood(JSON.stringify(this.model.attributes));
     }
 });
