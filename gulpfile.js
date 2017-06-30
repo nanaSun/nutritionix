@@ -9,7 +9,7 @@ var htmlmin = require('gulp-htmlmin');
 gulp.task('connect', function() {
     require('./api.js');
     connect.server({
-        port:80,
+        port:8080,
         root: ['src','bower_components'],
         livereload: true
     });

@@ -27,6 +27,9 @@
         
     },
     addToDiet:function(){
-         app.foodRecord.addFood(JSON.stringify(this.model.attributes));
+        date=$("#date").val();
+        date=date?date:app.date;
+        console.log(this.model.attributes);
+        app.foodRecords.push(new app.foodRecord({"date":date,"food":JSON.stringify(this.model.attributes)}));
     }
 });

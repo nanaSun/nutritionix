@@ -18,7 +18,7 @@ function onrequest(request, response){
     let r=null;
     let prettyJson ='';
   	let params = url.parse(request.url, true).query;
-    response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost"});	
+    response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"});	
     switch(params.action){
         case 'a': //autocomplete
            r=nutritionix.autocomplete({q:params.q});

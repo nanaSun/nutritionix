@@ -1,7 +1,15 @@
 $(function(){
 	var foods = new app.foodList([]);
-  app.foodRecord = new foodRecord();
-  
+  app.foodRecords=new app.foodRecordList();
+   root.localStorage=localStorage;
+  var foodRecordIds=root.localStorage.getItem('foodRecord');
+    if(foodRecordIds!=null){
+        foodRecordIds.split(",").forEach(function(id){
+            var data=root.localStorage.getItem('foodRecord-'+id);
+            app.foodRecords.push(new app.foodRecord(JSON.parse(data)));
+        })
+    }
+    console.log(app.foodRecords);
 	var App = Backbone.View.extend({
         el: $('#main'),
         events:{

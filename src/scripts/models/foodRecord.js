@@ -1,26 +1,26 @@
 var app=app||{};
 var root=root||{};
+function getDate(date){
+    var year=date.getFullYear(),
+        month=dateTmp.getMonth()+1,
+        day=dateTmp.getDate();
+        month=(month<10?"0":"")+month;
+        day=(day<10?"0":"")+day;
+    return year+"-"+month+"-"+day;
+}
+var dateTmp=new Date();
+app.date=getDate(dateTmp);
 app.LocalStorage=Backbone.LocalStorage;
 root.localStorage=localStorage;
-var foodRecord = Backbone.Model.extend({
+
+app.foodRecord = Backbone.Model.extend({
     defaults:{
-		foodRecord:[]
+        date:app.date,
+		food:{}
     },
     localStorage:new app.LocalStorage('foodRecord'),
-    initialize:function(){
-        var _=this,tmp=_.get("foodRecord");
-    	this.foodRecordIds=root.localStorage.getItem("foodRecord").split(",");
-    	this.foodRecordIds.forEach(function(id){
-            tmp=tmp.concat(JSON.parse(root.localStorage.getItem("foodRecord-"+id))["foodRecord"]);
-        });
-        this.set("foodRecord",tmp);
-    },
-    addFood:function(food){
-    	this.get("foodRecord").push(food);
-    	this.save()
-    },
-    removeFood:function(index){
-    	this.get("foodRecord").splice(1,index);
+    initialize: function(){
+        this.save();
     },
     changeToDate:function(){
     	this.fetch({
