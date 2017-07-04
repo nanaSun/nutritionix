@@ -6,6 +6,7 @@
 		nutrient_name:"",
 		nutrient_uom:"",
 		nutrient_value:"",
+		ingredient_statement:"",
 		nutrients:"",
 		resource_id:"",
 		serving_qty:"",

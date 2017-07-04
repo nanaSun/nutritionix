@@ -2,34 +2,43 @@
  app.foodView = Backbone.View.extend({
     tagName:'li',
     events:{
-        'click li': 'fetchDetail',
+        'click .seeMore': 'fetchDetail',
         'click .addToDiet':'addToDiet'
     },
     initialize: function(){
         this.detail=$("#detail");
         this.listenTo(this.model, 'change', this.render);
     },
-    template:  _.template( $('#item-service').html()),
-    templateDetail: _.template( $('#item-detail').html()),
+    template:  _.template($("#food-list").html()),
+    templateDetail: _.template($("#food-detail").html()),
     render: function(){
-        this.$el.html( this.template( this.model.attributes ) );
+        this.$el.html( this.template( {v:this.model.attributes,t:'new'} ) );
         return this;
     },
-    fetchDetail:function(){
-        var _=this,tmp=this.model.attributes;
-        _.model.fetch({
+    fetchDetail:function(callback){
+        console.log("fetch");
+        var _this=this,tmp=this.model.attributes;
+        _this.model.fetch({
             reset:true,
-            url:_.model.url+tmp.resource_id,
+            url:_this.model.url+tmp.resource_id,
             success:function(){
-                _.detail.html( _.templateDetail( _.model.attributes ) );
+                _this.detail.html( _this.templateDetail(  {v:_this.model.attributes,t:'new'} ) );
+
+                if(typeof callback==="function"){
+                    callback();
+                }
             }
         });
         
     },
     addToDiet:function(){
+        var _this=this
         date=$("#date").val();
         date=date?date:app.date;
-        console.log(this.model.attributes);
-        app.foodRecords.push(new app.foodRecord({"date":date,"food":JSON.stringify(this.model.attributes)}));
+        _this.fetchDetail(function(){
+            console.log(_this.model.attributes);
+            app.foodRecords.push(new app.foodRecord({"date":date,"food":JSON.stringify(_this.model.attributes)}));
+        })
+        
     }
 });

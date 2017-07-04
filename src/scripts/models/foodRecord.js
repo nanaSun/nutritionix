@@ -21,6 +21,7 @@ app.foodRecord = Backbone.Model.extend({
     localStorage:new app.LocalStorage('foodRecord'),
     initialize: function(){
         this.save();
+        // this.set("food",JSON.parse(this.get("food")));
     },
     changeToDate:function(){
     	this.fetch({
