@@ -16,12 +16,14 @@ root.localStorage=localStorage;
 app.foodRecord = Backbone.Model.extend({
     defaults:{
         date:app.date,
-		food:{}
+		food:""
     },
     localStorage:new app.LocalStorage('foodRecord'),
     initialize: function(){
-        this.save();
-        // this.set("food",JSON.parse(this.get("food")));
+        if(this.get("food")!==""){
+            this.save();
+            this.set("food",JSON.parse(this.get("food")));
+        }
     },
     changeToDate:function(){
     	this.fetch({

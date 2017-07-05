@@ -20,12 +20,7 @@
         this.detail.html( this.templateDetail( {v:this.model.attributes.food,t:'record'} ) );  
     },
     deleteDiet:function(){
-        var ids=root.localStorage.getItem('foodRecord'),id=this.model.attributes.id;
-        root.localStorage.removeItem('foodRecord-'+id);
-        console.log(this.model.attributes,ids);
-        ids=ids.replace(","+id,"").replace(id,"");
-        console.log(id,ids);
-        root.localStorage.setItem('foodRecord',ids);
+        this.model.destroy();
         this.$el.remove();
     }
 });
