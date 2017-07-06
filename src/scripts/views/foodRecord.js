@@ -8,9 +8,11 @@
     initialize: function(){
         this.detail=$("#detail");
         this.listenTo(this.model, 'change', this.render);
+        
     },
     template:  _.template($("#food-list").html()),
     templateDetail: _.template($("#food-detail").html()),
+
     render: function(){
         this.$el.html( this.template( {v:this.model.attributes.food,t:'record'} ) );
         return this;

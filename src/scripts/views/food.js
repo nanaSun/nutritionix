@@ -36,8 +36,7 @@
         date=$("#date").val();
         date=date?date:app.date;
         _this.fetchDetail(function(){
-            console.log(_this.model.attributes);
-            app.foodRecords.push(new app.foodRecord({"date":date,"food":JSON.stringify(_this.model.attributes)}));
+            Backbone.trigger('addFoodRecord',{"date":date,"food":JSON.stringify(_this.model.attributes)});
         })
         
     }

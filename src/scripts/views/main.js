@@ -11,6 +11,10 @@ app.mainView = Backbone.View.extend({
           _this.foods=new app.foodList([]);
           _this.foodRecords=new app.foodRecordList([]);
           _this.listenTo( _this.foods, 'reset', _this.render );
+          Backbone.on('addFoodRecord', this.addFoodRecord, this);
+      },
+      foodRecord:function(){
+          var _this=this;
           var fragment= $(document.createDocumentFragment());
           var foodRecordIds=root.localStorage.getItem('foodRecord');
           if(foodRecordIds!=null){
@@ -40,5 +44,11 @@ app.mainView = Backbone.View.extend({
      	searchFood:function(){
         var _=this;
      		this.foods.getItems(this.searchInput.val());
-     	}
+     	},
+      addFoodRecord:function(data){
+        console.log(data);
+        var _this=this;
+        var food=new app.foodRecord(data);
+        _this.foodRecords.push(food);
+      }
   });
