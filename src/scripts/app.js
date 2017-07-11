@@ -9,17 +9,18 @@ var myRouter = Backbone.Router.extend({
       "foodDetail/:viewid":"foodDetail"
     },
     foodRecord:function(){
-    	console.log("foodRecord",this.app);
     	this.app.foodRecord();
     },
     foodDetail: function (viewid) {
+
       this.app.foodDetail(viewid)
     },
     searchFood: function(value){
-      this.app.searchFood(value)
+      console.log(value);
+      this.app.searchFood(value);
     }
 });
 $(document).ready(function () {
-    router = new myRouter();
+    app.router = new myRouter();
     Backbone.history.start();
 })

@@ -12,7 +12,7 @@
     template:  _.template($("#food-list").html()),
     templateDetail: _.template($("#food-detail").html()),
     render: function(){
-        this.$el.html( this.template( {v:this.model.attributes,t:'new'} ) );
+        this.$el.html(this.template( {v:this.model.attributes,t:'new'} ) );
         return this;
     },
     fetchDetail:function(callback){

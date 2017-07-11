@@ -1,17 +1,20 @@
 var app=app||{};
 app.mainView = Backbone.View.extend({
       el: $('#main'),
-      events:{
-      	"click #search":"searchFood"
-      },
       initialize: function(){
           var _this=this;
-          _this.searchInput=$("#searchText");
-          _this.list=$("#services");
+           this.searchInput=$("#searchText");
+            this.list=$("#services");
           _this.foods=new app.foodList([]);
           _this.foodRecords=new app.foodRecordList([]);
           _this.listenTo( _this.foods, 'reset', _this.render );
           Backbone.on('addFoodRecord', this.addFoodRecord, this);
+      },
+      events: {
+        "click #search" : "directSearch"
+      },
+      directSearch:function(){
+         app.router.navigate("search/"+this.searchInput.val(), {trigger: true});
       },
       foodRecord:function(){
           var _this=this;
@@ -41,9 +44,9 @@ app.mainView = Backbone.View.extend({
           this.list.append(fragment);
           return this;
      	},
-     	searchFood:function(){
+     	searchFood:function(value){
         var _=this;
-     		this.foods.getItems(this.searchInput.val());
+     		this.foods.getItems(value);
      	},
       addFoodRecord:function(data){
         console.log(data);
