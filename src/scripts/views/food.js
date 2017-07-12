@@ -16,14 +16,13 @@
         return this;
     },
     fetchDetail:function(callback){
-        console.log("fetch");
         var _this=this,tmp=this.model.attributes;
         _this.model.fetch({
             reset:true,
             url:_this.model.url+tmp.resource_id,
             success:function(){
                 _this.detail.html( _this.templateDetail(  {v:_this.model.attributes,t:'new'} ) );
-
+               
                 if(typeof callback==="function"){
                     callback();
                 }

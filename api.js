@@ -11,14 +11,14 @@ const nutritionix = new NutritionixClient({
     appKey: apiKey
 });
 function errorHandler(response){
+  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"}); 
 	response.write(JSON.stringify({"error":1}));
-    response.end();
+  response.end();
 }
 function onrequest(request, response){
     let r=null;
     let prettyJson ='';
   	let params = url.parse(request.url, true).query;
-    response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"});	
     switch(params.action){
         case 'a': //autocomplete
            r=nutritionix.autocomplete({q:params.q});
@@ -54,8 +54,9 @@ function onrequest(request, response){
 		errorHandler(response);
     }else{
     	r.then(function(data){
+        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"}); 
     		if(params.action==='a'||params.action==='i'||params.action==='b'){
-				response.write(JSON.stringify(data));
+				  response.write(JSON.stringify(data));
     		}else{
 	    		response.write(JSON.stringify(data.results));
 	    	}

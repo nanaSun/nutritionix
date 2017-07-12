@@ -3,15 +3,17 @@ app.mainView = Backbone.View.extend({
       el: $('#main'),
       initialize: function(){
           var _this=this;
-           this.searchInput=$("#searchText");
-            this.list=$("#services");
+          _this.searchInput=$("#searchText");
+          _this.list=$("#services");
+          _this.date=$("#date");
           _this.foods=new app.foodList([]);
           _this.foodRecords=new app.foodRecordList([]);
           _this.listenTo( _this.foods, 'reset', _this.render );
           Backbone.on('addFoodRecord', this.addFoodRecord, this);
       },
       events: {
-        "click #search" : "directSearch"
+        "click #search" : "directSearch",
+        "click #searchByDate" : "foodRecordSearch"
       },
       directSearch:function(){
          app.router.navigate("search/"+this.searchInput.val(), {trigger: true});
@@ -30,6 +32,7 @@ app.mainView = Backbone.View.extend({
                     fragment.append(view.render().el);
                   }
               });
+               console.log( _this.foodRecords);
               this.list.append(fragment);
           }
       },
@@ -48,8 +51,18 @@ app.mainView = Backbone.View.extend({
         var _=this;
      		this.foods.getItems(value);
      	},
+      foodRecordSearch:function(){
+        var _this=this;
+        var tmp=_this.foodRecords.getItemsByDate(_this.date.val());
+        var fragment= $(document.createDocumentFragment());
+        _this.list.empty();
+        tmp.forEach(function(food){
+            var view = new app.foodRecordView({ model: food});
+            fragment.append(view.render().el);
+        });
+        this.list.append(fragment);
+      },
       addFoodRecord:function(data){
-        console.log(data);
         var _this=this;
         var food=new app.foodRecord(data);
         _this.foodRecords.push(food);
