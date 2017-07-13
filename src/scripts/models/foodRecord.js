@@ -11,10 +11,9 @@ app.foodRecord = Backbone.Model.extend({
             this.save();
             this.set("food",JSON.parse(this.get("food")));
         }
+        this.on('destroy', this.delete);
     },
-    changeToDate:function(){
-    	this.fetch({
-
-    	});
+    delete:function(){
+        console.log("delete",this.get("date"),this.get("food"))
     }
 });

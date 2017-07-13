@@ -23,8 +23,7 @@ var myRouter = Backbone.Router.extend({
     	this.app.foodRecord();
     },
     searchFood: function(value){
-      console.log(value);
-      this.app.searchFood(value);
+        this.app.searchFood(value);
     },
     seachfoodRecordByDate:function(date){
         this.app.foodRecordSearch(date);
