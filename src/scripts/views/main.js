@@ -10,6 +10,7 @@ app.mainView = Backbone.View.extend({
           _this.foodRecords=new app.foodRecordList();
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
           Backbone.on('addFoodRecord', this.addFoodRecord, this);
+          Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
       },
       events: {
         "click #search" : "directSearch",
@@ -61,6 +62,18 @@ app.mainView = Backbone.View.extend({
       addFoodRecord:function(data){
         var _this=this;
         var food=new app.foodRecord(data);
+        food.save({dataType:'json'}, {
+            success: function (model, respose, options) {
+                console.log("The model has been saved to the server");
+            },
+            error: function (model, xhr, options) {
+                console.log("Something went wrong while saving the model");
+            }
+        });
         _this.foodRecords.push(food);
+      },
+      removeFoodRecord:function(model){
+        model.destroy();
+        console.log(this.foodRecords)
       }
   });

@@ -13,7 +13,6 @@
     template:  _.template($("#food-list").html()),
     templateDetail: _.template($("#food-detail").html()),
     render: function(){
-         console.log("render");
         this.$el.html(this.template( {v:this.model.attributes,t:"new"} ) );
         return this;
     },

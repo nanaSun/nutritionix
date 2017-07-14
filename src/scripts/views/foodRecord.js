@@ -22,8 +22,8 @@
         this.detail.html( this.templateDetail( {v:this.model.attributes.food,t:'record'} ) );  
     },
     deleteDiet:function(){
-        this.model.destroy();
         this.$el.remove();
+        Backbone.trigger('removeFoodRecord',this.model);
     },
     fetchDetail:function(){
         var _this=this,tmp=_this.model.attributes;

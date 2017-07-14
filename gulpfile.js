@@ -8,6 +8,7 @@ var htmlmin = require('gulp-htmlmin');
 
 gulp.task('connect', function() {
     require('./api.js');
+    require('./foodapi.js');
     connect.server({
         port:8080,
         root: ['src','bower_components'],
