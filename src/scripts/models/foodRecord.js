@@ -23,6 +23,7 @@ app.foodRecord = Backbone.Model.extend({
     localStorage:new app.LocalStorage('foodRecord'),
     initialize: function(){
         if(this.get("food")!==""){
+            this.set("food",JSON.parse(this.get("food")));
         }
         this.on('destroy', this.delete);
     },

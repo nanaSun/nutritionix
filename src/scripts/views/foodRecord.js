@@ -9,6 +9,7 @@
     },
     initialize: function(){
         this.detail=$("#detail");
+
         this.listenTo(this.model, 'change', this.render);
         this.listenTo(this.model, 'reset', this.renderDetail);
     },
