@@ -2,13 +2,12 @@
  app.foodView = Backbone.View.extend({
     tagName:'li',
     events:{
-        'click .seeMore': 'fetchDetail',
+        'click .seeMore': 'directFoodDetail',
         'click .addToDiet':'addToDiet'
     },
     initialize: function(){
+        console.log(this.model.attributes);
         this.detail=$("#detail");
-        this.render();
-        this.listenTo(this.model, 'change:ingredient_statement', this.renderDetail);
     },
     template:  _.template($("#food-list").html()),
     templateDetail: _.template($("#food-detail").html()),
@@ -21,21 +20,24 @@
          _this.detail.html( _this.templateDetail(  {v:_this.model.attributes,t:"new"} ) );
          return _this;
     },
+    directFoodDetail:function(){
+        app.router.navigate("foodDetail/"+this.model.get("resource_id"),{trigger: true});
+    },
     fetchDetail:function(callback){
         var _this=this,tmp=_this.model.attributes;
+         console.log(_this.model.attributes);
         _this.model.fetch({
             reset:true,
             url:_this.model.url+tmp.resource_id,
             success:function(){
-                if(typeof callback!=="undefined") callback();
+                _this.renderDetail();
             }
         });
     },
     addToDiet:function(){
         var _this=this
-        date=$("#date").val();
+        date=$('input[name="date_submit"]').val();
         date=date?date:app.date;
-        Backbone.trigger('addFoodRecord',{"date":date,"food":JSON.stringify(_this.model.attributes)});
-        
+        Backbone.trigger('addFoodRecord',{"date":date,"food":JSON.parse(JSON.stringify(_this.model.attributes))});
     }
 });

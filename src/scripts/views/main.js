@@ -5,7 +5,7 @@ app.mainView = Backbone.View.extend({
           var _this=this;
           _this.searchInput=$("#searchText");
           _this.list=$("#services");
-          _this.date=$("#date");
+          _this.date=$("input[name='date_submit']");
           _this.foods=new app.foodList();
           _this.foodRecords=new app.foodRecordList();
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
@@ -35,6 +35,10 @@ app.mainView = Backbone.View.extend({
         });
         _this.render(fragment);
       },
+      foodDetail:function(id){
+         var view = new app.foodView({ model: new app.food({"resource_id":id})});
+         view.fetchDetail();
+      },
       foodRecord:function(){
           var _this=this;
           var fragment= $(document.createDocumentFragment());
@@ -47,6 +51,7 @@ app.mainView = Backbone.View.extend({
       foodRecordSearch:function(date){
         var _this=this;
         var tmp=_this.foodRecords.getItemsByDate(date);
+        console.log(tmp);
         var fragment= $(document.createDocumentFragment());
         tmp.forEach(function(food){
             var view = new app.foodRecordView({ model: food});

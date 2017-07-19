@@ -10,6 +10,10 @@ function getDate(date){
 var dateTmp=new Date();
 app.date=getDate(dateTmp);
 root.localStorage=localStorage;
+$('.datepicker').pickadate({
+  formatSubmit:'yyyy-mm-dd',
+  hiddenPrefix: 'date',
+});
 var myRouter = Backbone.Router.extend({
     initialize: function () {
     	this.app=new app.mainView();
@@ -17,7 +21,8 @@ var myRouter = Backbone.Router.extend({
     routes: {
       "foodRecord":'foodRecord',
       "search/:value":'searchFood',
-      "foodRecordDate/:date":'seachfoodRecordByDate'
+      "foodRecordDate/:date":'seachfoodRecordByDate',
+      "foodDetail/:id":'seachfoodDetail'
     },
     foodRecord:function(){
     	this.app.foodRecord();
@@ -27,6 +32,9 @@ var myRouter = Backbone.Router.extend({
     },
     seachfoodRecordByDate:function(date){
         this.app.foodRecordSearch(date);
+    },
+    seachfoodDetail:function(id){
+        this.app.foodDetail(id);
     }
 });
 $(document).ready(function () {

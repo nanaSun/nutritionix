@@ -3,6 +3,8 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
+	<link rel="stylesheet" href="/pickadate/lib/themes/default.css">
+	<link rel="stylesheet" href="/pickadate/lib/themes/default.date.css">
 	<style>
 		.hide{ display: none; }
 		#services img{  height: 44px;  }
@@ -11,7 +13,7 @@
 </head>
 <body>
 	<div id="main">
-		<input type="text" id="date" />
+		<input name="" class="datepicker" type="text" placeholder="Try me&hellip;">
 		<input type="text" id="searchText" />
 		<button id="search">search</button>
 		<button id="searchByDate">searchByDate</button>
@@ -44,10 +46,14 @@
 		</ul>
 		<div><%=v.nutrient_name%>:<%=v.nutrient_value%><%=v.nutrient_uom%></div>
 	</script>
+	
+
 	<script src="/jquery/dist/jquery.min.js"></script>
 	<script src="/underscore/underscore-min.js"></script>
 	<script src="/backbone/backbone-min.js"></script>
 	<script src="/backbone.localStorage/build/backbone.localStorage.min.js"></script>
+	<script src="/pickadate/lib/picker.js"></script>
+	<script src="/pickadate/lib/picker.date.js"></script>
 	<script src="/scripts/models/food.js "></script>
 	<script src="/scripts/models/foodRecord.js "></script>
 	<script src="/scripts/collections/foods.js "></script>
