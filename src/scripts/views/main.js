@@ -6,6 +6,8 @@ app.mainView = Backbone.View.extend({
           _this.searchInput=$("#searchText");
           _this.list=$("#services");
           _this.date=$("input[name='date_submit']");
+          _this.quanity=$("#quanity");
+          _this.period=$("#period");
           _this.foods=new app.foodList();
           _this.foodRecords=new app.foodRecordList();
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
@@ -66,7 +68,12 @@ app.mainView = Backbone.View.extend({
      	},
       addFoodRecord:function(data){
         var _this=this;
-        var food=new app.foodRecord(data);
+        var food=new app.foodRecord({
+          date:_this.date.val(),
+          period:_this.quanity.val(),
+          quanity:_this.quanity.val(),
+          food:data
+        });
         food.save({dataType:'json'}, {
             success: function (model, respose, options) {
                 console.log("The model has been saved to the server");

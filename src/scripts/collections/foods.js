@@ -8,7 +8,7 @@
         return this.where({checked:true});
     },
     getItems:function(word,callback){
-    	this.url="http://localhost:8888/?action=s&q="+word;
+    	this.url="http://172.27.6.130:8888/?action=s&q="+word;
     	this.fetch({reset:true});
     },
     search:function(word){

@@ -3,6 +3,8 @@ app.LocalStorage=Backbone.LocalStorage;
 app.foodRecord = Backbone.Model.extend({
     defaults:{
         date:app.date,
+        period:0,
+        quanity:0,
 		food:""
     },
     urlRoot: 'http://localhost:3000/',

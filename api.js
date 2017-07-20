@@ -54,7 +54,7 @@ function onrequest(request, response){
 		errorHandler(response);
     }else{
     	r.then(function(data){
-        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"}); 
+        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"}); 
     		if(params.action==='a'||params.action==='i'||params.action==='b'){
 				  response.write(JSON.stringify(data));
     		}else{

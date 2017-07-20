@@ -36,8 +36,6 @@
     },
     addToDiet:function(){
         var _this=this
-        date=$('input[name="date_submit"]').val();
-        date=date?date:app.date;
-        Backbone.trigger('addFoodRecord',{"date":date,"food":JSON.parse(JSON.stringify(_this.model.attributes))});
+        Backbone.trigger('addFoodRecord',JSON.parse(JSON.stringify(_this.model.attributes)));
     }
 });
