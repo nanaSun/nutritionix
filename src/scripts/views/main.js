@@ -14,19 +14,12 @@ app.mainView = Backbone.View.extend({
           Backbone.on('addFoodRecord', this.addFoodRecord, this);
           Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
       },
-      events: {
-        "click #search" : "directSearch",
-        "click #searchByDate" : "directFoodRecordSearch"
-      },
-      directSearch:function(){
-        app.router.navigate("search/"+this.searchInput.val(), {trigger: true});
-      },
-      directFoodRecordSearch:function(){
-        app.router.navigate("foodRecordDate/"+this.date.val(), {trigger: true});
-      },
       searchFood:function(value){
         var _this=this;
-        _this.foods.getItems(value);
+        if(value!==""){
+          _this.foods.getItems(value);
+        }
+        
       },
       searchFoodRender:function(value){
         var _this=this;
