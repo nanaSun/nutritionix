@@ -11,52 +11,52 @@ function getDate(date){
 var myRouter = Backbone.Router.extend({
     initialize: function () {
     	this.app=new app.mainView();
-        this.addDietPanel=$("#addDiet");
+        this.serachPanel=$(".serachDiv");
+        this.tool=$("#tool");
         this.period=$("#period");
-        this.searchInput=$("#searchText");
+        this.calendar=$(".days");
+        this.list=$("#services");
+        this.detail=$("#detail");
         var today=new Date(),todayTime=today.getTime();
         var date=getDate(today);
         var days=[date];
         for(var i=1;i<=6;i++){
             days.push(getDate(new Date(todayTime-1000*24*60*60*i)));
         }
-        $(".days").html(days.reduce(function(p,c,i){
+        this.calendar.html(days.reduce(function(p,c,i){
             return "<li data-day=\""+c+"\"><a href=\"#foodRecordDate/"+c+"\">"+c.substr(8,2)+"</a></li>"+p;
         },""));
         $('.datepicker').val(date);
-        this.init();
+        this.seachfoodRecordByDate(date);
     },
     init:function(){
         this.period.val(0);
-        this.addDietPanel.addClass("hide");
+        this.serachPanel.addClass("hide");
+        this.calendar.addClass("hide");
+        this.tool.addClass("hide");
+        this.list.empty();
+        this.detail.empty();
     },
     routes: {
-      "foodRecord":'foodRecord',
-      "addDiet/:period":'addDiet',
-      "search":'search',
+      "startSearch/:period":'startSearch',
       "search/:value":'searchFood',
-      "foodRecordDate/:date":'seachfoodRecordByDate',
-      "foodDetail/:id":'seachfoodDetail'
+      "foodRecordDate/:date":'seachfoodRecordByDate'
     },
-    addDiet:function(value){
+    startSearch:function(value){
         this.init();
+        this.serachPanel.removeClass("hide");
         this.period.val(value);
-        this.addDietPanel.removeClass("hide");
-    },
-    foodRecord:function(){
-        this.init();
-    	this.app.foodRecord();
-    },
-    search:function(){
-        app.router.navigate("search/"+this.searchInput.val(), {trigger: true});
     },
     searchFood: function(value){
         this.init();
+        this.serachPanel.removeClass("hide");
         this.app.searchFood(value);
     },
     seachfoodRecordByDate:function(date){
         this.init();
-        $(".days li").each(function(index,item){
+        this.tool.removeClass("hide");
+        this.calendar.removeClass("hide");
+        this.calendar.find("li").each(function(index,item){
             if(date===$(item).data("day")){
                 $(item).addClass("cur");
             }else{
@@ -64,17 +64,15 @@ var myRouter = Backbone.Router.extend({
             }
         });
         this.app.foodRecordSearch(date);
-    },
-    seachfoodDetail:function(id){
-        this.init();
-        this.app.foodDetail(id);
     }
 });
 $(document).ready(function () {
     //init day choose
 
     root.localStorage=localStorage;
-    
+    $("#addDiet").bind("touchstart",function(e){
+        return false;
+    })
     app.router = new myRouter();
     Backbone.history.start();
 })
