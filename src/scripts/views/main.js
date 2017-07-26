@@ -8,15 +8,34 @@ app.mainView = Backbone.View.extend({
           _this.list=$("#services");
           _this.date=$("input[name='date_submit']");
           _this.quanity=$("#quanity");
-          
           _this.period=$("#period");
+          _this.readyToAddId="";
+          _this.addDietBtn=$("#addDiet .add");
           _this.foods=new app.foodList();
           _this.foodRecords=new app.foodRecordList();
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
-          Backbone.on('addFoodRecord', this.addFoodRecord, this);
+          Backbone.on('editFood', this.editFood, this);
           Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
           _this.searchBtn.bind("click",function(){
             app.router.navigate("search/"+_this.searchInput.val(), {trigger: true});
+          });
+          _this.quanity.bind("blur",function(){
+            var q=parseInt($(this).val()),tmp=[];
+            if(q>0&&_this.readyToAddId!==""){
+                tmp=_this.foods.searchID(_this.readyToAddId);
+                tmp=tmp.length==1?tmp[0]:[];
+                tmp.set("num",q); 
+                
+            }
+          });
+          _this.addDietBtn.bind("click",function(){
+
+             var q=parseInt(_this.quanity.val()),tmp=[];
+              if(q>0&&_this.readyToAddId!==""){
+                  tmp=_this.foods.searchID(_this.readyToAddId);
+                  tmp=tmp.length==1?tmp[0]:[];
+                  _this.addFoodRecord(tmp);    
+              }
           })
       },
       searchFood:function(value){
@@ -24,7 +43,6 @@ app.mainView = Backbone.View.extend({
         if(value!==""){
           _this.foods.getItems(value);
         }
-        
       },
       searchFoodRender:function(value){
         var _this=this;
@@ -58,7 +76,12 @@ app.mainView = Backbone.View.extend({
           this.list.append(fragment);
           return this;
      	},
+      editFood:function(id){
+          this.readyToAddId=id;
+          console.log(this.readyToAddId)
+      },
       addFoodRecord:function(data){
+        console.log(data);
         var _this=this;
         var food=new app.foodRecord({
           date:_this.date.val(),

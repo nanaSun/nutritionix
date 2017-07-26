@@ -70,8 +70,13 @@ $(document).ready(function () {
     //init day choose
 
     root.localStorage=localStorage;
-    $("#addDiet").bind("touchstart",function(e){
+    $("#addDiet").bind("click",function(e){
         return false;
+    });
+    $(".closeAddDiet").bind("click",function(){
+        $("#addDiet").addClass("hide");
+        $("#quanity").val(1);
+
     })
     app.router = new myRouter();
     Backbone.history.start();

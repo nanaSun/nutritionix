@@ -24,7 +24,6 @@ app.foodRecord = Backbone.Model.extend({
     },
     localStorage:new app.LocalStorage('foodRecord'),
     initialize: function(){
-
         this.on('destroy', this.delete);
     },
     delete:function(){

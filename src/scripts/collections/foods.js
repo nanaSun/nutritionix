@@ -15,6 +15,11 @@
     	return this.filter(function(i){
     		return i.get("title")===word;
     	})
+    },
+    searchID:function(resource_id){
+        return this.filter(function(i){
+            return i.get("resource_id")===resource_id;
+        })
     }
 });
 

@@ -7,14 +7,21 @@ app.LocalStorage=Backbone.LocalStorage;
         'click .deleteDiet': 'deleteDiet'
     },
     initialize: function(){
-        this.foodView=new app.foodView({ model: new app.food(JSON.parse(JSON.stringify(this.model.get("food"))))});
-        
+        var _this=this;
+        var food=JSON.parse(JSON.stringify(_this.model.get("food")));
+        food.type="record";
+        _this.foodView=new app.foodView({ model: new app.food(food)});
+        console.log(_this.foodView.$el.find(".deleteDiet"));
+        _this.foodView.$el.find(".deleteDiet").bind("click",function(){
+            console.log("")
+            _this.deleteDiet();
+        })
     },
     render:function(){
         return this.foodView.render();
     },
     deleteDiet:function(){
-        this.$el.remove();
+        this.foodView.$el.remove();
         Backbone.trigger('removeFoodRecord',this.model);
     }
 });
