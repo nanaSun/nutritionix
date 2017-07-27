@@ -77,6 +77,9 @@ $(document).ready(function () {
         $("#addDiet").addClass("hide");
         $("#quanity").val(1);
 
+    });
+    $(".openTool").bind("click",function(){
+        $(".toolList").toggleClass("active");
     })
     app.router = new myRouter();
     Backbone.history.start();

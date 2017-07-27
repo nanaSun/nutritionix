@@ -3,7 +3,6 @@
     tagName:'li',
     events:{
         'click .addToDiet':'editReadyToAddFood',
-        'click .deleteDiet': 'deleteDiet'
     },
     initialize: function(){
         var _this=this;
@@ -50,9 +49,5 @@
     setNum:function(num){
         console.log(num);
         //this.model.set("num",num);
-    },
-    deleteDiet:function(){
-        this.$el.remove();
-        Backbone.trigger('removeFoodRecord',this.model);
     }
 });

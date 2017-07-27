@@ -100,7 +100,7 @@ app.mainView = Backbone.View.extend({
         _this.foodRecords.push(food);
       },
       removeFoodRecord:function(model){
+        console.log(model);
         model.destroy();
-        console.log(this.foodRecords)
       }
   });
