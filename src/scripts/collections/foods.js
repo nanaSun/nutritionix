@@ -9,7 +9,12 @@
     },
     getItems:function(word,callback){
     	this.url="http://172.27.6.130:8888/?action=s&q="+word;
-    	this.fetch({reset:true});
+    	this.fetch({
+            reset:true,
+            error:function(){
+                callback();
+            }
+        });
     },
     search:function(word){
     	return this.filter(function(i){

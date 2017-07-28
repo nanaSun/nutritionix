@@ -11,7 +11,6 @@ gulp.task('connect', function() {
     require('./foodapi.js');
     connect.server({
         port:8080,
-        root: ['src','bower_components'],
         livereload: true
     });
 });
@@ -26,15 +25,14 @@ gulp.task('check', function() {
     .pipe(jshint.reporter('default'));
 });
 gulp.task('zip',function(){
-	 gulp.src('./src/*.html')
+	gulp.src('./src/*.html')
         .pipe(usemin({
-            assetsDir: 'bower_components',
-            js: [uglify(), 'concat']
+            js: [uglify(), 'concat'],
+            inlinejs: [uglify(), 'concat']
         }))
         .pipe(gulp.dest('dist'));
-    gulp.src('./src/scripts/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/scripts'));
+    gulp.src('./src/images/*')
+        .pipe(gulp.dest('dist/images'));
     gulp.src('./src/styles/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest('dist/styles'));

@@ -10,9 +10,11 @@ app.mainView = Backbone.View.extend({
           _this.quanity=$("#quanity");
           _this.period=$("#period");
           _this.readyToAddId="";
+          _this.addDiet=$("#addDiet");
           _this.addDietBtn=$("#addDiet .add");
           _this.foods=new app.foodList();
           _this.foodRecords=new app.foodRecordList();
+          _this.loading=$(".loading");
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
           Backbone.on('editFood', this.editFood, this);
           Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
@@ -34,24 +36,36 @@ app.mainView = Backbone.View.extend({
               if(q>0&&_this.readyToAddId!==""){
                   tmp=_this.foods.searchID(_this.readyToAddId);
                   tmp=tmp.length==1?tmp[0]:[];
-                  _this.addFoodRecord(tmp);    
+                  _this.addFoodRecord(tmp,function(){
+                     _this.addDiet.addClass("hide");
+                  });    
               }
           })
+          _this.loading.addClass("hide");
       },
       searchFood:function(value){
         var _this=this;
         if(value!==""){
-          _this.foods.getItems(value);
+          _this.loading.removeClass("hide").addClass("processing")
+          _this.foods.getItems(value,function(){
+             _this.searchFoodRender([]);
+          });
         }
       },
       searchFoodRender:function(value){
+       
         var _this=this;
         var fragment= $(document.createDocumentFragment());
-        _this.foods.forEach(function(food){
-            var view = new app.foodView({ model: food});
-            fragment.append(view.render().el);
-        });
+        if(value.length>0){
+          _this.foods.forEach(function(food){
+              var view = new app.foodView({ model: food});
+              fragment.append(view.render().el);
+          });
+        }else{
+          fragment.append("<li>Something wrong</li>");
+        }
         _this.render(fragment);
+        _this.loading.addClass("hide").removeClass("processing");
       },
       foodRecord:function(){
           var _this=this;
@@ -80,7 +94,7 @@ app.mainView = Backbone.View.extend({
           this.readyToAddId=id;
           console.log(this.readyToAddId)
       },
-      addFoodRecord:function(data){
+      addFoodRecord:function(data,callback){
         console.log(data);
         var _this=this;
         var food=new app.foodRecord({
@@ -92,6 +106,7 @@ app.mainView = Backbone.View.extend({
         food.save({dataType:'json'}, {
             success: function (model, respose, options) {
                 console.log("The model has been saved to the server");
+                callback();
             },
             error: function (model, xhr, options) {
                 console.log("Something went wrong while saving the model");

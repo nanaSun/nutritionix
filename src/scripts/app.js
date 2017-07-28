@@ -17,20 +17,19 @@ var myRouter = Backbone.Router.extend({
         this.calendar=$(".days");
         this.list=$("#services");
         this.detail=$("#detail");
+        this.searchText=$("#searchText");
         var today=new Date(),todayTime=today.getTime();
-        var date=getDate(today);
-        var days=[date];
+        this.today=getDate(today);
+        var days=[this.today];
         for(var i=1;i<=6;i++){
             days.push(getDate(new Date(todayTime-1000*24*60*60*i)));
         }
         this.calendar.html(days.reduce(function(p,c,i){
             return "<li data-day=\""+c+"\"><a href=\"#foodRecordDate/"+c+"\">"+c.substr(8,2)+"</a></li>"+p;
         },""));
-        $('.datepicker').val(date);
-        this.seachfoodRecordByDate(date);
+        $('.datepicker').val(this.today);
     },
     init:function(){
-        this.period.val(0);
         this.serachPanel.addClass("hide");
         this.calendar.addClass("hide");
         this.tool.addClass("hide");
@@ -38,6 +37,7 @@ var myRouter = Backbone.Router.extend({
         this.detail.empty();
     },
     routes: {
+      "":'seachfoodRecordByDate',
       "startSearch/:period":'startSearch',
       "search/:value":'searchFood',
       "foodRecordDate/:date":'seachfoodRecordByDate'
@@ -53,6 +53,7 @@ var myRouter = Backbone.Router.extend({
         this.app.searchFood(value);
     },
     seachfoodRecordByDate:function(date){
+        if(!date) date=this.today;
         this.init();
         this.tool.removeClass("hide");
         this.calendar.removeClass("hide");
@@ -80,7 +81,7 @@ $(document).ready(function () {
     });
     $(".openTool").bind("click",function(){
         $(".toolList").toggleClass("active");
-    })
+    });
     app.router = new myRouter();
     Backbone.history.start();
-})
+});
