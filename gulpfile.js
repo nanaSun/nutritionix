@@ -28,7 +28,7 @@ gulp.task('zip',function(){
 	gulp.src('./src/*.html')
         .pipe(usemin({
             js: [uglify(), 'concat'],
-            inlinejs: [uglify(), 'concat']
+            js1: [uglify(), 'concat']
         }))
         .pipe(gulp.dest('dist'));
     gulp.src('./src/images/*')
