@@ -11,7 +11,7 @@ const nutritionix = new NutritionixClient({
     appKey: apiKey
 });
 function errorHandler(response){
-  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"}); 
+  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"}); 
 	response.write(JSON.stringify({"error":1}));
   response.end();
 }

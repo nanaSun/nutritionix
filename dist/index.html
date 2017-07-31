@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	 <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+	<div class="loading">
+		<p>loading...</p>
+	</div>
+	<div id="main">
+		<div class="serachDiv"><input type="text" id="searchText" /><a href="javascript:void(0)">search</a></div>
+		<ul class="days hide"></ul>
+		<div id="tool">
+			<div class="openTool">+</div>
+			<ul class="toolList">
+				<li><a href="#startSearch/0"></a></li>
+				<li><a href="#startSearch/1"></a></li>
+				<li><a href="#startSearch/2"></a></li>
+				<li><a href="#startSearch/3"></a></li>
+			</ul>
+		</div>
+		<a href="#" id="comeback"></a>
+		<div id="addDiet" class="hide">
+			<div class="addDietWrapper">
+				<div class="closeAddDiet"></div>
+				<div class="formInput"><label>date:</label><input class="datepicker" type="date" name="date_submit" value="" /></div>
+				<div class="formInput"><label>num:</label><input id="quanity" type="number" min="1" max="10" value="1" /></div>
+				<div id="detail"></div>
+				<input type="hidden" id="period" />
+				<div class="add">add</div>
+			</div>
+		</div>
+		<ul id="services"></ul>
+		<div id="diet"></div>
+	</div>
+	<script type="text/html" id="food-list">
+		<img src=<%=thumbnail%>>
+		<p>
+			<span><%=item_name%></span>
+			<% if(type==='new') {%>
+			<span><%=nutrient_value%></span>
+			<% }else{ %>
+			<span><%=num%>--<%=nutrient_value*num%></span>
+			<% } %>
+			<span><%=nutrient_uom%></span>
+		</p>
+		<div class="operation">
+			<% if(type==='new') {%>
+			<div class="addToDiet"></div>
+			<% }else{ %>
+			<div class="deleteDiet"></div>
+			<% } %>
+		</div>
+	</script>
+	<script type="text/html" id="food-detail">
+		<div>
+			<span class="ttlqty"><%=serving_qty%></span>
+			<span><%=serving_uom%></span>
+		</div>
+		<div><%=nutrient_name%>:<i class="cal"><%=nutrient_value%></i><%=nutrient_uom%></div>
+	</script>
+	
+	<script src="scripts/tool.min.js"></script>
+	<script src="scripts/app.min.js"></script>
+</body>
+</html>
