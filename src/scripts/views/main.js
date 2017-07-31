@@ -40,8 +40,10 @@ app.mainView = Backbone.View.extend({
                      _this.addDiet.addClass("hide");
                   });    
               }
-          })
+          });
+          
           _this.loading.addClass("hide");
+
       },
       searchFood:function(value){
         var _this=this;
