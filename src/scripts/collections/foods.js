@@ -8,7 +8,7 @@
         return this.where({checked:true});
     },
     getItems:function(word,callback){
-    	this.url="http://115.159.5.216:8888/?action=s&q="+word;
+    	this.url="http://cherryvenus.com:8888/?action=s&q="+word;
     	this.fetch({
             reset:true,
             error:function(){

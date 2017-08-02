@@ -11,7 +11,8 @@ const nutritionix = new NutritionixClient({
     appKey: apiKey
 });
 function errorHandler(response){
-  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"}); 
+  console.log("error");
+  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://www.cherryvenus.com"}); 
 	response.write(JSON.stringify({"error":1}));
   response.end();
 }
@@ -26,6 +27,15 @@ function onrequest(request, response){
         case 'n': //natural 
            r=nutritionix.natural(params.q.split(",").join('\n'));
            break;
+        case 'e': //natural 
+           r=nutritionix.exercise(JSON.stringify({
+                 "query":"ran 3 miles",
+                 "gender":"female",
+                 "weight_kg":72.5,
+                 "height_cm":167.64,
+                 "age":30
+                }));
+          break;
         case 'i': //item
            r=nutritionix.item({ id: params.q });
            break;
@@ -34,10 +44,10 @@ function onrequest(request, response){
            break;
         case 's': 
            r=nutritionix.search({
-			  q:params.q,
-			  limit: 10,
-			  offset: 0
-			});
+      			  q:params.q,
+      			  limit: 10,
+      			  offset: 0
+      			});
            break;
         case 'bs': 
            r=nutritionix.brand_search({
@@ -55,8 +65,10 @@ function onrequest(request, response){
 		errorHandler(response);
     }else{
     	r.then(function(data){
-        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"}); 
-    		if(params.action==='a'||params.action==='i'||params.action==='b'){
+       
+        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://www.cherryvenus.com"}); 
+    		if(params.action==='a'||params.action==='i'||params.action==='b'||params.action==='e'){
+           console.log(data);
 				  response.write(JSON.stringify(data));
     		}else{
 	    		response.write(JSON.stringify(data.results));

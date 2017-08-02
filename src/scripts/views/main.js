@@ -13,21 +13,29 @@ app.mainView = Backbone.View.extend({
           _this.addDiet=$("#addDiet");
           _this.addDietBtn=$("#addDiet .add");
           _this.foods=new app.foodList();
+          _this.searchResults=new app.searchList();
           _this.foodRecords=new app.foodRecordList();
           _this.loading=$(".loading");
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
+          _this.listenTo( _this.searchResults, 'reset', _this.searchResultsRender );
           Backbone.on('editFood', this.editFood, this);
           Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
           _this.searchBtn.bind("click",function(){
-            app.router.navigate("search/"+_this.searchInput.val(), {trigger: true});
+            _this.searchResults.abortSearch();
+            if(Backbone.history.fragment=="search/"+_this.searchInput.val()){
+                Backbone.history.loadUrl();
+            }else{
+                app.router.navigate("search/"+_this.searchInput.val(),{trigger: true, replace: true});
+            }
+            
           });
           _this.quanity.bind("blur",function(){
+            $(".searchList").addClass("hide");
             var q=parseInt($(this).val()),tmp=[];
             if(q>0&&_this.readyToAddId!==""){
                 tmp=_this.foods.searchID(_this.readyToAddId);
                 tmp=tmp.length==1?tmp[0]:[];
                 tmp.set("num",q); 
-                
             }
           });
           _this.addDietBtn.bind("click",function(){
@@ -41,9 +49,32 @@ app.mainView = Backbone.View.extend({
                   });    
               }
           });
-          
+          _this.searchInput.bind("keyup",function(){
+              var value=$(this).val();
+              $(".searchList").addClass("hide");
+              if(value!==""){
+                _this.searchResults.getItems(value,function(){
+                  _this.searchResultsRender([]);
+                  console.log("error")
+                });            
+              }
+              
+          })
           _this.loading.addClass("hide");
 
+      },
+      searchResultsRender:function(value){
+          var _this=this;
+          var fragment= $(document.createDocumentFragment());
+          if(value.length>0){
+            _this.searchResults.forEach(function(r){
+                console.log(r);
+                var view = new app.searchView({ model: r});
+                fragment.append(view.render().el);
+            });
+            $(".searchList").html(fragment).removeClass("hide");
+          }
+          
       },
       searchFood:function(value){
         var _this=this;
@@ -55,7 +86,6 @@ app.mainView = Backbone.View.extend({
         }
       },
       searchFoodRender:function(value){
-       
         var _this=this;
         var fragment= $(document.createDocumentFragment());
         if(value.length>0){

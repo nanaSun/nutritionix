@@ -7,7 +7,7 @@ app.foodRecord = Backbone.Model.extend({
         quanity:0,
 		food:""
     },
-    urlRoot: 'http://localhost:3000/',
+    urlRoot: 'http://cherryvenus.com',
     sync: function (method, model, options) {
         options || (options = {});
         switch(method){

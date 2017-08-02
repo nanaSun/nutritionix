@@ -15,7 +15,7 @@
 		num:0,
 		type:"new"
     },
-    url:"http://115.159.5.216:8888/?action=i&q=",
+    url:"http://cherryvenus.com:8888/?action=i&q=",
     initialize: function(){
         this.on('model:num', function(){
         	console.log("num change")

@@ -18,6 +18,7 @@ var myRouter = Backbone.Router.extend({
         this.list=$("#services");
         this.detail=$("#detail");
         this.searchText=$("#searchText");
+        this.searchList=$(".searchList");
         var today=new Date(),todayTime=today.getTime();
         this.today=getDate(today);
         var days=[this.today];
@@ -33,7 +34,9 @@ var myRouter = Backbone.Router.extend({
         this.serachPanel.addClass("hide");
         this.calendar.addClass("hide");
         this.tool.addClass("hide");
+        this.searchList.addClass("hide");
         this.list.empty();
+        this.searchList.empty();
         this.detail.empty();
     },
     routes: {
@@ -49,6 +52,7 @@ var myRouter = Backbone.Router.extend({
     },
     searchFood: function(value){
         this.init();
+        this.searchText.val(value);
         this.serachPanel.removeClass("hide");
         this.app.searchFood(value);
     },
@@ -68,8 +72,6 @@ var myRouter = Backbone.Router.extend({
     }
 });
 $(document).ready(function () {
-    //init day choose
-
     root.localStorage=localStorage;
     $(".closeAddDiet").bind("click",function(){
         $("#addDiet").addClass("hide");
