@@ -7,9 +7,9 @@ app.foodRecord = Backbone.Model.extend({
         quanity:0,
 		food:""
     },
-    urlRoot: 'http://cherryvenus.com',
+    urlRoot: app.url,
     sync: function (method, model, options) {
-        options || (options = {});
+        options=options || (options = {});
         switch(method){
             case "read":
                 options.url=this.urlRoot+"?action=read&id="+this.get("id");break;
@@ -27,6 +27,6 @@ app.foodRecord = Backbone.Model.extend({
         this.on('destroy', this.delete);
     },
     delete:function(){
-        console.log("delete",this.get("date"),this.get("food"))
+        console.log("delete",this.get("date"),this.get("food"));
     }
 });

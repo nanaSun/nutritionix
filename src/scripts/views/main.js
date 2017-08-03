@@ -1,4 +1,8 @@
 var app=app||{};
+/**
+* @description main view of the website
+* @constructor
+*/
 app.mainView = Backbone.View.extend({
       el: $('#main'),
       initialize: function(){
@@ -18,8 +22,11 @@ app.mainView = Backbone.View.extend({
           _this.loading=$(".loading");
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
           _this.listenTo( _this.searchResults, 'reset', _this.searchResultsRender );
+
+          // bind some triggers
           Backbone.on('editFood', this.editFood, this);
           Backbone.on('removeFoodRecord', this.removeFoodRecord, this);
+
           _this.searchBtn.bind("click",function(){
             _this.searchResults.abortSearch();
             if(Backbone.history.fragment=="search/"+_this.searchInput.val()){
@@ -39,7 +46,6 @@ app.mainView = Backbone.View.extend({
             }
           });
           _this.addDietBtn.bind("click",function(){
-
              var q=parseInt(_this.quanity.val()),tmp=[];
               if(q>0&&_this.readyToAddId!==""){
                   tmp=_this.foods.searchID(_this.readyToAddId);
@@ -55,20 +61,21 @@ app.mainView = Backbone.View.extend({
               if(value!==""){
                 _this.searchResults.getItems(value,function(){
                   _this.searchResultsRender([]);
-                  console.log("error")
                 });            
               }
               
-          })
+          });
           _this.loading.addClass("hide");
-
       },
+      /**
+      * @description After autocomplete api return render the searchresults 
+      * @param {array} value - the results
+      */
       searchResultsRender:function(value){
           var _this=this;
           var fragment= $(document.createDocumentFragment());
           if(value.length>0){
             _this.searchResults.forEach(function(r){
-                console.log(r);
                 var view = new app.searchView({ model: r});
                 fragment.append(view.render().el);
             });
@@ -76,15 +83,23 @@ app.mainView = Backbone.View.extend({
           }
           
       },
+      /**
+      * @description when start requesting food api
+      * @param {string} value - the word to search
+      */
       searchFood:function(value){
         var _this=this;
         if(value!==""){
-          _this.loading.removeClass("hide").addClass("processing")
+          _this.loading.removeClass("hide").addClass("processing");
           _this.foods.getItems(value,function(){
              _this.searchFoodRender([]);
           });
         }
       },
+      /**
+      * @description after food api return results and then render the list 
+      * @param {array} value - the return results
+      */
       searchFoodRender:function(value){
         var _this=this;
         var fragment= $(document.createDocumentFragment());
@@ -99,6 +114,9 @@ app.mainView = Backbone.View.extend({
         _this.render(fragment);
         _this.loading.addClass("hide").removeClass("processing");
       },
+      /**
+      * @description when food record change refresh the dom
+      */
       foodRecord:function(){
           var _this=this;
           var fragment= $(document.createDocumentFragment());
@@ -108,6 +126,10 @@ app.mainView = Backbone.View.extend({
           });
           _this.render(fragment);
       },
+      /**
+      * @description search food record by date
+      * @param {string} date - the day string
+      */
       foodRecordSearch:function(date){
         var _this=this;
         var tmp=_this.foodRecords.getItemsByDate(date);
@@ -118,16 +140,26 @@ app.mainView = Backbone.View.extend({
         });
         _this.render(fragment);
       },
+      /**
+      * @description render the dom who's class is list 
+      */
       render: function(fragment){
           this.list.append(fragment);
           return this;
      	},
+      /**
+      * @description make the edit id become visitable
+      * @param {string} id - the food id
+      */
       editFood:function(id){
           this.readyToAddId=id;
-          console.log(this.readyToAddId)
       },
+      /**
+      * @description add food record to the storage
+      * @param {object} data - food array
+      * @param {function} callback - after function
+      */
       addFoodRecord:function(data,callback){
-        console.log(data);
         var _this=this;
         var food=new app.foodRecord({
           date:_this.date.val(),
@@ -146,8 +178,11 @@ app.mainView = Backbone.View.extend({
         });
         _this.foodRecords.push(food);
       },
+      /**
+      * @description delete food record from the storage
+      * @param {object} model - the record object to delete
+      */
       removeFoodRecord:function(model){
-        console.log(model);
         model.destroy();
       }
   });

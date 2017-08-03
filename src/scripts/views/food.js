@@ -21,7 +21,7 @@
     },
     renderDetail:function(){
          var _this=this;
-         _this.detail.html( _this.templateDetail(_this.model.attributes) );
+         _this.detail.html( _this.templateDetail(_this.model.attributes));
          return _this;
     },
     fetchDetail:function(callback){
@@ -43,11 +43,7 @@
 
     },
     addToDiet:function(){
-        var _this=this
+        var _this=this;
         Backbone.trigger('addFoodRecord',JSON.parse(JSON.stringify(_this.model.attributes)));
-    },
-    setNum:function(num){
-        console.log(num);
-        //this.model.set("num",num);
     }
 });

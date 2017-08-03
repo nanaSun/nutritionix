@@ -3,7 +3,7 @@ const http = require("http");
 const querystring = require('querystring');
 const url = require('url');
 const NutritionixClient = require('nutritionix');
-
+const apiRUL="*";
 const apiID="3912a728";
 const apiKey="93348161bf3709746463a237526d180f";
 const nutritionix = new NutritionixClient({
@@ -12,7 +12,7 @@ const nutritionix = new NutritionixClient({
 });
 function errorHandler(response){
   console.log("error");
-  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://www.cherryvenus.com"}); 
+  response.writeHead(500,{"Content-Type":"application/json","Access-Control-Allow-Origin":apiRUL}); 
 	response.write(JSON.stringify({"error":1}));
   response.end();
 }
@@ -66,7 +66,7 @@ function onrequest(request, response){
     }else{
     	r.then(function(data){
        
-        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://www.cherryvenus.com"}); 
+        response.writeHead(200,{"Content-Type":"application/json","Access-Control-Allow-Origin":apiRUL}); 
     		if(params.action==='a'||params.action==='i'||params.action==='b'||params.action==='e'){
            console.log(data);
 				  response.write(JSON.stringify(data));

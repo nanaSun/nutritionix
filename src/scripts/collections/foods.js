@@ -8,7 +8,7 @@
         return this.where({checked:true});
     },
     getItems:function(word,callback){
-    	this.url="http://cherryvenus.com:8888/?action=s&q="+word;
+    	this.url=app.url+":8888/?action=s&q="+word;
     	this.fetch({
             reset:true,
             error:function(){
@@ -19,12 +19,12 @@
     search:function(word){
     	return this.filter(function(i){
     		return i.get("title")===word;
-    	})
+    	});
     },
     searchID:function(resource_id){
         return this.filter(function(i){
             return i.get("resource_id")===resource_id;
-        })
+        });
     }
 });
 

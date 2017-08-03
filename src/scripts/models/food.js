@@ -15,10 +15,10 @@
 		num:0,
 		type:"new"
     },
-    url:"http://cherryvenus.com:8888/?action=i&q=",
+    url:app.url+":8888/?action=i&q=",
     initialize: function(){
         this.on('model:num', function(){
-        	console.log("num change")
+        	console.log("num change");
         });
     },
 });

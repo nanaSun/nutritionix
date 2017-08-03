@@ -1,5 +1,10 @@
 var root=root||{};
 var app=app||{};
+app.url="http://localhost";//
+/**
+* @description get formate date
+* @param {date} date - The date you need to formate
+*/
 function getDate(date){
     var year=date.getFullYear(),
         month=date.getMonth()+1,
@@ -8,6 +13,10 @@ function getDate(date){
         day=(day<10?"0":"")+day;
     return year+"-"+month+"-"+day;
 }
+/**
+* @description the website router manage
+* @constructor
+*/
 var myRouter = Backbone.Router.extend({
     initialize: function () {
     	this.app=new app.mainView();
@@ -45,17 +54,29 @@ var myRouter = Backbone.Router.extend({
       "search/:value":'searchFood',
       "foodRecordDate/:date":'seachfoodRecordByDate'
     },
+    /**
+    * @description After you choose one period
+    * @param {int} value - period's id
+    */
     startSearch:function(value){
         this.init();
         this.serachPanel.removeClass("hide");
         this.period.val(value);
     },
+    /**
+    * @description After you enter the word you need to search
+    * @param {string} value - the word you need to search
+    */
     searchFood: function(value){
         this.init();
         this.searchText.val(value);
         this.serachPanel.removeClass("hide");
         this.app.searchFood(value);
     },
+    /**
+    * @description see your food record by date
+    * @param {string} date - the date you need to check
+    */
     seachfoodRecordByDate:function(date){
         if(!date) date=this.today;
         this.init();

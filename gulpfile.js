@@ -20,7 +20,7 @@ gulp.task('bower', function() {
 });
 
 gulp.task('check', function() {
-    return gulp.src(['./src/scripts/*.js'])
+    return gulp.src(['./src/scripts/*.js','./src/scripts/views/*.js','./src/scripts/models/*.js','./src/scripts/collections/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

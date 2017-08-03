@@ -7,7 +7,7 @@
     },
     getItems:function(word,callback){
         this.abortSearch();
-    	this.url="http://cherryvenus.com:8888/?action=a&q="+word;
+    	this.url=app.url+":8888/?action=a&q="+word;
     	this.fetchXRH=this.fetch({
             reset:true,
             error:function(){
