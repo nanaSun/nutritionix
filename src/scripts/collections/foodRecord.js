@@ -16,6 +16,13 @@
 		}
     },
     getItemsByDate:function(date){
-    	return this.where({date: date});
+    	var tmp=this.where({date: date});
+    	var totalcal=tmp.reduce(function(p,c){
+    		return p+c.get("quanity")*c.get("food").nutrient_value;
+    	},0);
+    	return {
+    		foods:tmp,
+    		total:totalcal
+    	};
     }
 });

@@ -24,12 +24,13 @@
 				<li><a href="#startSearch/3"></a></li>
 			</ul>
 		</div>
+		<div id="totalCal">total:<span></span>kal</div>
 		<a href="#" id="comeback"></a>
 		<div id="addDiet" class="hide">
 			<div class="addDietWrapper">
 				<div class="closeAddDiet"></div>
 				<div class="formInput"><label>date:</label><input class="datepicker" type="date" name="date_submit" value="" /></div>
-				<div class="formInput"><label>num:</label><input id="quanity" type="number" min="1" max="10" value="1" /></div>
+				<div class="formInput"><label>num:</label><input id="quanity" type="number" min="1" value="1" /></div>
 				<div id="detail"></div>
 				<input type="hidden" id="period" />
 				<div class="add">add</div>
@@ -43,7 +44,7 @@
 			<% if(type==='new') {%>
 			<span><%=nutrient_value%></span>
 			<% }else{ %>
-			<span><%=num%>--<%=nutrient_value*num%></span>
+			<span><%=quanity%>--<%=nutrient_value*quanity%></span>
 			<% } %>
 			<span><%=nutrient_uom%></span>
 		</p>

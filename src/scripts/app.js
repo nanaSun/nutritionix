@@ -28,6 +28,7 @@ var myRouter = Backbone.Router.extend({
         this.detail=$("#detail");
         this.searchText=$("#searchText");
         this.searchList=$(".searchList");
+        this.total=$("#totalCal");
         var today=new Date(),todayTime=today.getTime();
         this.today=getDate(today);
         var days=[this.today];
@@ -44,6 +45,7 @@ var myRouter = Backbone.Router.extend({
         this.calendar.addClass("hide");
         this.tool.addClass("hide");
         this.searchList.addClass("hide");
+        this.total.addClass("hide");
         this.list.empty();
         this.searchList.empty();
         this.detail.empty();
@@ -82,6 +84,7 @@ var myRouter = Backbone.Router.extend({
         this.init();
         this.tool.removeClass("hide");
         this.calendar.removeClass("hide");
+        this.total.removeClass("hide");
         this.calendar.find("li").each(function(index,item){
             if(date===$(item).data("day")){
                 $(item).addClass("cur");

@@ -20,6 +20,7 @@ app.mainView = Backbone.View.extend({
           _this.searchResults=new app.searchList();
           _this.foodRecords=new app.foodRecordList();
           _this.loading=$(".loading");
+          _this.totalCal=$("#totalCal span");
           _this.listenTo( _this.foods, 'reset', _this.searchFoodRender );
           _this.listenTo( _this.searchResults, 'reset', _this.searchResultsRender );
 
@@ -36,17 +37,14 @@ app.mainView = Backbone.View.extend({
             }
             
           });
-          _this.quanity.bind("blur",function(){
-            $(".searchList").addClass("hide");
-            var q=parseInt($(this).val()),tmp=[];
-            if(q>0&&_this.readyToAddId!==""){
-                tmp=_this.foods.searchID(_this.readyToAddId);
-                tmp=tmp.length==1?tmp[0]:[];
-                tmp.set("num",q); 
-            }
+          _this.quanity.bind("blur", function() {
+            var tmp=_this.foods.searchID(_this.readyToAddId);
+            tmp=tmp.length==1?tmp[0]:[];
+            $("#detail .ttlqty").html($(this).val()*tmp.get("serving_qty"));
+            $("#detail .cal").html($(this).val()*tmp.get("nutrient_value"));
           });
           _this.addDietBtn.bind("click",function(){
-             var q=parseInt(_this.quanity.val()),tmp=[];
+              var q=parseInt(_this.quanity.val()),tmp=[];
               if(q>0&&_this.readyToAddId!==""){
                   tmp=_this.foods.searchID(_this.readyToAddId);
                   tmp=tmp.length==1?tmp[0]:[];
@@ -134,7 +132,8 @@ app.mainView = Backbone.View.extend({
         var _this=this;
         var tmp=_this.foodRecords.getItemsByDate(date);
         var fragment= $(document.createDocumentFragment());
-        tmp.forEach(function(food){
+        _this.totalCal.html(tmp.total);
+        tmp.foods.forEach(function(food){
             var view = new app.foodRecordView({ model: food});
             fragment.append(view.render().el);
         });
@@ -163,7 +162,7 @@ app.mainView = Backbone.View.extend({
         var _this=this;
         var food=new app.foodRecord({
           date:_this.date.val(),
-          period:_this.quanity.val(),
+          period:_this.period.val(),
           quanity:_this.quanity.val(),
           food:data
         });

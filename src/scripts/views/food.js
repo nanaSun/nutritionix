@@ -8,10 +8,6 @@
         var _this=this;
         _this.detail=$("#detail");
         _this.addDietPanel=$("#addDiet");
-        _this.model.on("change:num", function(model, name) {
-            _this.detail.find(".ttlqty").html(model.get("num")*model.get("serving_qty"));
-            _this.detail.find(".cal").html(model.get("num")*model.get("nutrient_value"));
-        });
     },
     template:  _.template($("#food-list").html()),
     templateDetail: _.template($("#food-detail").html()),

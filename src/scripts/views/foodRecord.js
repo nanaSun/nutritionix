@@ -10,7 +10,9 @@ app.LocalStorage=Backbone.LocalStorage;
         this.model.get("food").type="record";
     },
     render:function(){
-        this.$el.html(this.template(this.model.get("food")) );
+        var tmp=this.model.get("food");
+        tmp.quanity=this.model.get("quanity");
+        this.$el.html(this.template(tmp));
         return this;
     },
     deleteDiet:function(){

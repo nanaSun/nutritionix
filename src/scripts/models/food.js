@@ -12,13 +12,12 @@
 		serving_qty:0,
 		serving_uom:"",
 		thumbnail:"",
-		num:0,
 		type:"new"
     },
     url:app.url+":8888/?action=i&q=",
     initialize: function(){
-        this.on('model:num', function(){
-        	console.log("num change");
+        this.on('model:quanity', function(){
+        	console.log("quanity change");
         });
     },
 });
