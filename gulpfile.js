@@ -10,7 +10,7 @@ gulp.task('connect', function() {
     require('./api.js');
     require('./foodapi.js');
     connect.server({
-        port:8080,
+        port:9000,
         livereload: true
     });
 });
@@ -41,7 +41,7 @@ gulp.task('default', ["connect"]);
 gulp.task('serve',  function() {
     require('./api.js');
     connect.server({
-        port:80,
+        port:8080,
         root: ['dist'],
         livereload: true
     });

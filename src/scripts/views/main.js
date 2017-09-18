@@ -50,6 +50,7 @@ app.mainView = Backbone.View.extend({
                   tmp=tmp.length==1?tmp[0]:[];
                   _this.addFoodRecord(tmp,function(){
                      _this.addDiet.addClass("hide");
+                      app.router.navigate("/",{trigger: true});
                   });    
               }
           });
@@ -169,13 +170,15 @@ app.mainView = Backbone.View.extend({
         food.save({dataType:'json'}, {
             success: function (model, respose, options) {
                 console.log("The model has been saved to the server");
+                _this.foodRecords.push(food);
                 callback();
             },
             error: function (model, xhr, options) {
+                alert("fail to add");
                 console.log("Something went wrong while saving the model");
             }
         });
-        _this.foodRecords.push(food);
+        
       },
       /**
       * @description delete food record from the storage

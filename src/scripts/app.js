@@ -72,6 +72,7 @@ var myRouter = Backbone.Router.extend({
     searchFood: function(value){
         this.init();
         this.searchText.val(value);
+        $("#quanity").val(1);
         this.serachPanel.removeClass("hide");
         this.app.searchFood(value);
     },
@@ -100,7 +101,6 @@ $(document).ready(function () {
     $(".closeAddDiet").bind("click",function(){
         $("#addDiet").addClass("hide");
         $("#quanity").val(1);
-
     });
     $(".openTool").bind("click",function(){
         $(".toolList").toggleClass("active");

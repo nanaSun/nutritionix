@@ -9,6 +9,6 @@ PS:
 When you click the day, that day's food will show, but there only 7 days available, you can't see before 7 days.
 
 
-Download the project, and then npm install. After install running gulp serve and copy http://localhost/ to view the web.
+Download the project, and then npm install. After install running gulp serve and copy http://localhost:8080 to view the web.
 
 Note: I can't directly use nutritionix api, so I put it in the api.js and you can visit it by http://localhost:8888 .
