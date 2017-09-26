@@ -8,7 +8,7 @@
         return this.where({checked:true});
     },
     getItems:function(word,callback){
-    	this.url=app.url+":8888/?action=s&q="+word;
+    	this.url=app.url+"?action=s&q="+word;
     	this.fetch({
             reset:true,
             error:function(){

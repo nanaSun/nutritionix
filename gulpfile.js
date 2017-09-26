@@ -39,9 +39,9 @@ gulp.task('zip',function(){
 })
 gulp.task('default', ["connect"]);
 gulp.task('serve',  function() {
-    require('./api.js');
+    //require('./api.js');
     connect.server({
-        port:8080,
+        port:8888,
         root: ['dist'],
         livereload: true
     });

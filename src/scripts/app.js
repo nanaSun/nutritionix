@@ -1,6 +1,6 @@
 var root=root||{};
 var app=app||{};
-app.url="http://localhost";//
+app.url="http://api.cherryvenus.com/nutritionix/";//
 /**
 * @description get formate date
 * @param {date} date - The date you need to formate
